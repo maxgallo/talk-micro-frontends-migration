@@ -1,5 +1,4 @@
-# Talk: Micro-frontends at the edge
-### A story about people, migration and serverless
+# Talk: Micro-frontends, a migration story
 
 ![alt text](/images/slide0.png)
 
