@@ -43,39 +43,6 @@
 
 ---
 
-<!--
-### 1. Contesto
-
-
-1. DAZN Constraints
-2. Soluzione
-
-### 2. Migrazione
-
-1. Due Frontend
-2. Routing Missing Part
-
-### 3. Lambda @ Edge
-- Overview
-- Challenges
-	- Development
-	- Concurrent Limit
-	- Logs & Metrics Aggregation
-		- Lambda logs & cloudfront logs
-- Tips
-
-### 4. Solution Analysis
-- Costs
-- Check Needs VS Caracteristic
-- Canary Deployment
-- Runtime configuration
-	-  make network calls to resources in the same region where your Lambda@Edge function is executing to reduce network latency.
-
-### 5. TakeAways
-
----
--->
-
 #[fit] Context
 ## **Migration**
 ## **Lambda @ Edge**
@@ -86,14 +53,19 @@
 
 ### @**_maxgallo**
 
+^ Why that person of that team took a different decision ?
+
+^ Reason for writing down ADR, Architecture Decision Records
+
 ---
 
 # Users spikes
 
 ![original 40%](./images/users_spike.png)
 
-^ Costs
-^ Warm up not easily manageable
+^ Costs of provisioning machines
+
+^ Warm up not easily manageable with live events, for example delays
 
 ---
 
@@ -109,7 +81,9 @@
 ![original 65%](./images/dazn_expansion.png)
 
 ^ Example AWS account
+
 ^ Before: We didn't know who the credit card assocciated with the account belonged to
+
 ^ After: 4 account for each team, everything managed by cli
 
 ---
@@ -193,6 +167,8 @@
 
 ^ Domain Driven Design
 
+^ Microservices
+
 ---
 
 # Micro-frontends
@@ -237,7 +213,7 @@
 
 ![original 43%](./images/canary_release.png)
 
-^ Same URL
+^ Release one MFE per time with Strangler Pattern is ok, but "catalog" MFE is quite a dangerous one to release globally in one go.
 
 ---
 
@@ -252,12 +228,12 @@
 [.list: #000000, bullet-character(->), alignment(left)]
 [.build-lists: true]
 
-- __*Scale Automatically*__
-- __*Fast*__
-- __*Frontend Independent*__
-- __*Same URL*__
-- __*Strangler Pattern*__
-- __*Canary Deployment*__
+- *Auto Scaling*
+- *Fast*
+- *Frontend Independent*
+- *Same URL*
+- *Strangler Pattern*
+- *Canary Deployment*
 
 ![original 40% ](./images/1_or_2_question_long.png)
 
@@ -282,12 +258,12 @@
 [.list: #000000, bullet-character(->), alignment(left)]
 
 [.build-lists: true]
-An extension to AWS Lambda that lets you execute functions that custmoize the content that CloudFront delivers.
+An extension to AWS Lambda that lets you execute functions that customize the content that CloudFront delivers.
 
 <br />
 
 - __*No Infrastructure to manage*__
-- __*Auto Scale*__
+- __*Auto Scaling*__
 - __*Pay-Per-Use*__
 
 
@@ -312,8 +288,9 @@ An extension to AWS Lambda that lets you execute functions that custmoize the co
 
 ![inline 50%](./images/lambda_at_edge.png)
 
-^ CloudFront events come input & output
-^ La riga tratteggiata è dove CloudFront cacha gli oggetti
+^ The dotted line is where CloudFront chache the items
+
+^ What's the input and the output ? 
 
 ---
 
@@ -327,82 +304,31 @@ An extension to AWS Lambda that lets you execute functions that custmoize the co
 
 ---
 
+# Lambda @ Edge Challenges
 
-# L@E Challenge #1
+[.column]
+### **Concurrent Limit**
+-> 1000 concurrent execution [^a]
 
-## **Concurrent Limit**
+### **Deployment Time**
+-> up to 10 minutes to deploy
 
-1000 concurrent executions per account, per region.
 
-<br/><br/>
+[.column]
+### **Metrics & Alarms**
+-> Spread across 11 AWS regions
 
-Example: *5000 RPS* * *6ms* execution time = *30* concurrent Lambda @ Edge
+### **Lambda Logs**
+-> Spread across 11 AWS regions  [^b]
 
-![inline](./images/lambda.png)![inline](./images/lambda.png)![inline](./images/lambda.png)![inline](./images/lambda.png)![inline](./images/lambda.png)![inline](./images/lambda.png)![inline](./images/lambda.png)![inline](./images/lambda.png)
+[^a]: It's possible to increment the limit up to 5000 per account, per region. [https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html#limits-lambda-at-edge](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html#limits-lambda-at-edge)
 
-[.footer: It's possible to increment the limit up to 5000 per account, per region. Lambda @ Edge limits: [https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html#limits-lambda-at-edge](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/cloudfront-limits.html#limits-lambda-at-edge)]
+[^b]: Logs Aggregation [https://aws.amazon.com/blogs/networking-and-content-delivery/aggregating-lambdaedge-logs/](https://aws.amazon.com/blogs/networking-and-content-delivery/aggregating-lambdaedge-logs/)
 
----
-
-# L@E Challenge #2
-
-## **Development**
-
-Deploying Lambda@Edge can take up to 10 minutes.
-
-<br/><br/><br/><br/><br/><br/><br/>
-
-![inline 55%](./images/deployment.png)
-
-<br/><br/><br/><br/><br/>
-
-^ AWS said they're improving this one.
+^ We use Kinesis Firehose to do logs aggregation, which is the method suggested in the blog post.
 
 ---
 
-# L@E Challenge #3
-
-## **Metrics & Alarms**
-Available in the region where the Lambda @ Edge did run (11 AWS Regions).
-
-Partially aggregated in CloudFront console.
-
-![inline 30%](./images/users_spike.png)
-
-^ 11 AWS Region sono dove CloudFront ha un Regional Edge Cache
-
-[.footer: Edge monitoring on Cloudfront: [https://aws.amazon.com/about-aws/whats-new/2019/06/announcing-enhanced-lambda-edge-monitoring-amazon-cloudfront-console/](https://aws.amazon.com/about-aws/whats-new/2019/06/announcing-enhanced-lambda-edge-monitoring-amazon-cloudfront-console/)]
-
----
-
-# L@E Challenge #4
-
-## **Lambda Logs**
-
-CloudWatch logs in the closest region to the request (11 AWS Regions). <br/><br/><br/><br/>
-
-![inline 45%](./images/logs.png)
-
-^ 11 AWS Region sono dove CloudFront ha un Regional Edge Cache
-
-[.footer: Logs Aggregation [https://aws.amazon.com/blogs/networking-and-content-delivery/aggregating-lambdaedge-logs/](https://aws.amazon.com/blogs/networking-and-content-delivery/aggregating-lambdaedge-logs/)]
-
-
----
-
-# L@E Challenge #5
-
-## **Lambda Validation Logs**
-
-Lambda @ Edge outputs are validated, and results are available in CloudWatch.
-
-Available at the log group:  __*/aws/cloudfront/LambdaEdge/DistributionId*__
-
-
-![inline 30%](./images/lambda_at_edge_events.png)
-
-[.footer: Test & Debug Lambda @ Edge: [https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-testing-debugging.html](https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-edge-testing-debugging.html) ]
----
 
 ## **Context**
 
@@ -433,13 +359,22 @@ Around __*2ms*__ of execution time
 [.list: #000000, bullet-character(->), alignment(left)]
 [.build-lists: true]
 
-- *Auto Scale*
+- *Auto Scaling*
 - *Fast*
-- *Independent from Frontend*
+- *Frontend Independent*
 - *Same URL*
+- **Strangler Pattern**
 - **Canary Deployment**
 
 ![original 42%](./images/1_or_2_question_final.png)
+
+---
+
+# [fit] Canary Deployments **&** Strangler Pattern
+
+<br/>
+
+![inline 60%](./images/canary_strangler.png)
 
 ---
 
@@ -486,14 +421,14 @@ Around __*2ms*__ of execution time
 
 [^2]: Search Engine Optimisation
 
-^ Non lavoriamo più in un contesto di Client-Server, ma di Client, Server & CDN.
+^ We're not working anymore in a Client-Server world, but Client, Server and CDN.
 
 ---
 
 #[fit] Thank You
 
 
-# [fit] **github.com/maxgallo/talk-micro-frontends-edge**
+# [fit] **github.com/maxgallo/talk-micro-frontends-migration**
 
 <br />
 <br />
