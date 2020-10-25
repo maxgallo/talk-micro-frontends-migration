@@ -1,0 +1,57 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "id": "0h65lO71tHLs7dNrdSRoN",
+      "type": "rectangle",
+      "x": 807.9379340277771,
+      "y": 354.7165798611113,
+      "width": 256.4489293981483,
+      "height": 189.34461805555551,
+      "angle": 0,
+      "strokeColor": "#a61e4d",
+      "backgroundColor": "#e64980",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "seed": 1483636984,
+      "version": 690,
+      "versionNonce": 1472274936,
+      "isDeleted": false,
+      "groupIds": []
+    },
+    {
+      "id": "DyBAIDs_Epxf6ZgtFbHYD",
+      "type": "text",
+      "x": 843.8263054220083,
+      "y": 392.6902933582628,
+      "width": 181,
+      "height": 111,
+      "angle": 0,
+      "strokeColor": "#a61e4d",
+      "backgroundColor": "transparent",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "seed": 208677512,
+      "version": 1808,
+      "versionNonce": 826980600,
+      "isDeleted": false,
+      "groupIds": [],
+      "text": "function () {\n\n}",
+      "fontSize": 29.841171755783463,
+      "fontFamily": 1,
+      "textAlign": "left",
+      "baseline": 100
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#f5a91b"
+  }
+}
