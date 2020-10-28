@@ -35,18 +35,18 @@
 
 ## **Context**
 
-## **Migration**
+## **Problem**
 
-## **Lambda @ Edge**
+## **Solution**
 
-## **Solution Analysis**
+## **Analysis**
 
 ---
 
 #[fit] Context
-## **Migration**
-## **Lambda @ Edge**
-## **Solution Analysis**
+## **Problem**
+## **Solution**
+## **Analysis**
 
 <br />
 <br />
@@ -101,29 +101,33 @@
 
 ---
 
-
 # Live Events
 # **-> Speed**
 
 ![original 70%](./images/goal.png)
 
+---
+
+# Two Frontend Applications
+# **-> Two Companies**
+
+![inline 50%](./images/dazn_1_vs_2.png)
 
 ---
 
-
 [.column]
 
-<br /><br /><br /><br />
+<br />
 
 # **Users spikes**
 # **Company Growth**
 # **Live Events**
+# **Two Frontend Applications**
 
 [.column]
 
 <br /><br /><br /><br /><br /><br /><br /><br />
 # [fit] Context
-
 
 ---
 
@@ -142,10 +146,10 @@
 
 ## **Context**
 
-#[fit] Migration
+#[fit] Problem
 
-## **Lambda @ Edge**
-## **Solution Analysis**
+## **Solution**
+## **Analysis**
 
 <br />
 
@@ -153,11 +157,6 @@
 
 ---
 
-# Two Frontend Applications, **Two Companies**
-
-![inline 60%](./images/dazn_1_vs_2.png)
-
----
 
 ![original 60% ](./images/monolith_vs_microfrontends.png)
 
@@ -241,11 +240,11 @@
 
 ## **Context**
 
-## **Migration**
+## **Problem**
 
-## [fit] Lambda @ Edge
+## [fit] Solution
 
-## **Solution Analysis**
+## **Analysis**
 
 <br />
 
@@ -310,13 +309,13 @@ An extension to AWS Lambda that lets you execute functions that customize the co
 ### **Concurrent Limit**
 -> 1000 concurrent execution [^a]
 
-### **Deployment Time**
--> up to 10 minutes to deploy
+### **Metrics & Alarms**
+-> Spread across 11 AWS regions
 
 
 [.column]
-### **Metrics & Alarms**
--> Spread across 11 AWS regions
+### **Deployment Time**
+-> up to 10 minutes to deploy
 
 ### **Lambda Logs**
 -> Spread across 11 AWS regions  [^b]
@@ -332,11 +331,11 @@ An extension to AWS Lambda that lets you execute functions that customize the co
 
 ## **Context**
 
-## **Migration**
+## **Problem**
 
-## **Lambda @ Edge**
+## **Solution**
 
-## [fit] Solution Analysis
+## [fit] Analysis
 
 <br />
 
@@ -413,7 +412,7 @@ Around __*2ms*__ of execution time
 
 - Not only AWS (Cloudflare Workers)
 
-- Routing & Canary Release it's just the beginning (SSR[^1], SEO [^2], Security Headers...)
+- Routing & Canary Release are just the beginning (SSR[^1], SEO [^2], Authentication, Authorization, Real-Time Image Transformation, Security & Privacy...)
 
 
 
