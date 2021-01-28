@@ -1,5 +1,5 @@
 # [fit] Micro-frontends,
-### [fit] **a migration story**
+### [fit] **a migration story on the Edge**
 
 
 <br />
@@ -349,7 +349,7 @@ Around __*2ms*__ of execution time
 
 ![inline 55%](./images/costs.png)
 
-[.footer: You pay for __*Number of Requests*__ and __*GB per second*__ of memory used (granularity at 50ms) [https://aws.amazon.com/lambda/pricing/#Lambda.40Edge_Pricing](https://aws.amazon.com/lambda/pricing/#Lambda.40Edge_Pricing)]
+[.footer: You pay for __*Number of Requests*__ and __*GB per second*__ of memory used (granularity at 1ms) [https://aws.amazon.com/lambda/pricing/#Lambda.40Edge_Pricing](https://aws.amazon.com/lambda/pricing/#Lambda.40Edge_Pricing)]
 
 ---
 
@@ -408,11 +408,13 @@ Around __*2ms*__ of execution time
 
 - Context Context Context !
 
+- Vertical Micro-frontends to splith the Monolith
+
 - Working on the CDN is possibile
 
 - Not only AWS (Cloudflare Workers)
 
-- Routing & Canary Release are just the beginning (SSR[^1], SEO [^2], Authentication, Authorization, Real-Time Image Transformation, Security & Privacy...)
+- Routing & Canary Release are just the beginning (SSR[^1], SEO[^2], Authentication, Authorization, Real-Time Image Transformation, Security & Privacy...)
 
 
 
