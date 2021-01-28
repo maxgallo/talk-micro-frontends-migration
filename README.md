@@ -1,4 +1,4 @@
-# Talk: Micro-frontends, a migration story
+# Talk: Micro-frontends, a migration story on the Edge
 
 ![alt text](/images/slide0.png)
 
